@@ -11,6 +11,7 @@ public class LookAtCamera : MonoBehaviour
     public PhotonView view;
     public LookAtCamera look;
     public CinemachineFreeLook vcam;
+    public bool camOn = true;
     void Start()
     {
         
@@ -23,8 +24,22 @@ public class LookAtCamera : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if(view.IsMine)
+    { if (Input.GetKeyDown(KeyCode.F1))
+        {
+            if (camOn)
+            { 
+                camOn = false;
+            Debug.LogError("camera deactivated");
+        }
+        else if(!camOn)
+            {
+                Debug.LogError("camera activated");
+                camOn = true;
+            }
+          
+        }
+    
+        if((view.IsMine) && (camOn))
         {
             camera1.gameObject.SetActive(true);
             transform.localRotation = Quaternion.Euler(0f, cam.eulerAngles.y, 0f);

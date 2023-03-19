@@ -18,49 +18,58 @@ public class MoveSuryavanshi : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (view.IsMine)
+         if (view.IsMine)
+         {
+        PlayerPrefs.SetInt("viewmine", 1);
+        if (Input.GetKey(KeyCode.W))
         {
-            PlayerPrefs.SetInt("viewmine", 1);
-            if (Input.GetKey(KeyCode.W))
+            //rb.AddForce(Vector3.right*2);
+            //animator.SetBool("IsWalking", true);
+
+            animator.SetBool("isWaving", false);
+            animator.SetBool("IsWalking", true);
+
+
+            animator.SetBool("IsIdle", false);
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                //rb.AddForce(Vector3.right*2);
-                //animator.SetBool("IsWalking", true);
 
-
-                animator.SetBool("IsWalking", true);
-
-                animator.SetBool("IsIdle", false);
-                if (Input.GetKey(KeyCode.LeftShift))
-                {
-
-                    animator.SetBool("IsWalking", false);
-                    animator.SetBool("IsRunning", true);
-                }
-                else
-                {
-                    animator.SetBool("IsWalking", true);
-                    animator.SetBool("IsRunning", false);
-                }
-
-
-
-
+                animator.SetBool("IsWalking", false);
+                animator.SetBool("IsRunning", true);
             }
             else
             {
-                //animator.SetBool("IsRunning", false);
-                animator.SetBool("IsWalking", false);
-                animator.SetBool("IsIdle", true);
+                animator.SetBool("IsWalking", true);
                 animator.SetBool("IsRunning", false);
             }
 
 
+
+
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetBool("isWaving", true);
+            animator.SetBool("IsIdle", false);
+            animator.SetBool("IsWalking", false);
+
         }
         else
         {
-            PlayerPrefs.SetInt("viewmine", 0);
+            animator.SetBool("isWaving", false);
+            animator.SetBool("IsRunning", false);
+            animator.SetBool("IsWalking", false);
+            animator.SetBool("IsIdle", true);
+            animator.SetBool("IsRunning", false);
         }
+
+
     }
+        else
+        {
+          PlayerPrefs.SetInt("viewmine", 0);
+}
+ }
     private void OnApplicationQuit()
     {
         PlayerPrefs.SetInt("viewmine", 0);
